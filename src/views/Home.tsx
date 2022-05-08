@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DateTime } from 'luxon';
+import { idText } from 'typescript';
 
 
 type Props = {}
@@ -31,54 +32,39 @@ const Home = (props: Props) => {
   
     var secondsDifference = Math.floor(difference/1000);
     
-  
-    if(date2.getDay() === 5){
-      setDen(0);
-    }
-    else if(date2.getDay() === 6){
-      setDen(1);
-    }
-    else{
-      setDen(0);
-      
-    }
+
+    setDen(daysDifference)
     setHodina(hoursDifference);
     setMinuta(minutesDifference);
     setSekunda(secondsDifference);
-
   }
 
-  function timeDifferent(date1: any,date2: any) {
-    var difference = date1.getTime() - date2.getTime();
-  
-    var daysDifference = Math.floor(difference/1000/60/60/24);
-    difference -= daysDifference*1000*60*60*24
-  
-    var hoursDifference = Math.floor(difference/1000/60/60);
-    difference -= hoursDifference*1000*60*60
-  
-    var minutesDifference = Math.floor(difference/1000/60);
-    difference -= minutesDifference*1000*60
-  
-    var secondsDifference = Math.floor(difference/1000);
-    
-  
-    if(date2.getDay() === 5){
-      setDen(0);
+  function actualStatus(indexo: String){
+    let indexo1 = Number(indexo)
+    if(indexo1 == 999){
+      setAktual("Vidíme sa v pondelok")
+      return
     }
-    else if(date2.getDay() === 6){
-      setDen(1);
+    if(indexo1 == 9999){
+      setAktual("Vidíme sa zajtra")
+      return
     }
-    else{
-      setDen(0);
-      
+    if(indexo1 == 99999){
+      setAktual("Do začiatku vyučovania zostáva")
+      return
     }
-    setHodina(hoursDifference);
-    setMinuta(minutesDifference);
-    setSekunda(secondsDifference);
-
+    if(String(indexo1/2).includes(".5")){
+      setAktual("Prebieha " + String((indexo1/2)+0.5) + " hodina" )
+      if(aktn !==indexo1){
+        
+      }
+    }else{ 
+      setAktual("Prebieha prestávka pred " + String((indexo1/2)+1) + " hodinou" )
+      if(aktn !==indexo1){
+        akt = indexo1
+      }
+    }
   }
-  let aktualne = "fdsdf";
   let akt = 0;
   let aktn = 0;
   let start = 0;
@@ -106,66 +92,107 @@ const Home = (props: Props) => {
       // 8 hod koniec - 15
 
 
-      setCas(new Date());
-      let cass = new Date();
-      let casOld= new Date();
       aktn=akt;
+
+
+      
+
+
       for(let index in values){
-        let valueS = values[index];
-        let value1S = values[Number(index)+1];
-        let value = new Date('2011-10-10T'+valueS);
-        let value1 = new Date('2011-10-10T'+value1S);
-        
-        
-        if(cass.toLocaleTimeString().length < 8){
-          casOld = new Date('2011-10-10T0'+cass.toLocaleTimeString());
+        let cass = new Date();
+
+        let hodnotaList = values[index].split(":")
+        let hodnota = new Date()
+        hodnota.setHours(Number(hodnotaList[0]))
+        hodnota.setMinutes(Number(hodnotaList[1]))
+        hodnota.setSeconds(Number(hodnotaList[2]))
+
+        let hodnota2 = new Date()
+        if(Number(index)  == 16){
+          let hodnota2List = values[1].split(":")
+          hodnota2.setHours(Number(hodnota2List[0]))
+          hodnota2.setMinutes(Number(hodnota2List[1]))
+          hodnota2.setSeconds(Number(hodnota2List[2]))
         }else{
-          casOld = new Date('2011-10-10T'+cass.toLocaleTimeString());
+          let hodnota2List = values[Number(index)+1].split(":")
+          hodnota2.setHours(Number(hodnota2List[0]))
+          hodnota2.setMinutes(Number(hodnota2List[1]))
+          hodnota2.setSeconds(Number(hodnota2List[2]))
+        }
+        
+
+        let koniec = new Date();
+        koniec.setHours(14);
+        koniec.setMinutes(50);
+        koniec.setSeconds(0);
+
+        let zaciatok = new Date();
+        zaciatok.setHours(7)
+        zaciatok.setMinutes(30)
+        zaciatok.setSeconds(0);
+
+
+        //osetrenie vykendu
+        if(koniec.getDay() >= 6){
+          let odober = cass.getDay()-5;
+          koniec.setDate(zaciatok.getDate()-odober);
+        }
+        
+
+
+
+
+        //ked je po skole 
+        if(cass.getTime() > koniec.getTime()){
+          
+        //ked je vykend + piatok
+          if(cass.getDay() >= 5){
+            let pridavok = 8 - cass.getDay();
+            zaciatok.setDate(zaciatok.getDate()+pridavok) 
+            timeDifference(zaciatok, cass)
+            actualStatus("999")
+          }else{
+            zaciatok.setDate(zaciatok.getDate()+1) 
+            timeDifference(zaciatok, cass)
+            actualStatus("9999")
+          }
         }
 
         
+    
+        //počaš skoly
+        if( hodnota.getTime() < cass.getTime()&& cass.getTime() < hodnota2.getTime()){
+            timeDifference(hodnota2 ,cass)
+            actualStatus(index)
+            akt = Number(index)
+        }
+          
+        //pred školou
+        if(cass.getTime() < zaciatok.getTime()){
+          timeDifference(zaciatok ,cass)
+          actualStatus("99999")
+          akt = 999
+        }
+
         
 
-        if(value.getTime() < casOld.getTime() && value1.getTime() > casOld.getTime()){
-          timeDifference(value1, cass)
-          if(String(Number(index)/2).includes(".5")){
-            setAktual("Prebieha " + String((Number(index)/2)+0.5) + " hodina" )
-            if(akt !== Number(index)){
-              akt = Number(index);
-            }
-          }else{ 
-            setAktual("Prebieha prestávka pred " + String((Number(index)/2)+1) + " hodinou" )
-            if(akt !== Number(index)){
-              akt = Number(index);
-            }
-          }
-        }
-        
-        if(casOld.getTime() < new Date('2011-10-10T'+values[1]).getTime()){
-          timeDifference(new Date('2011-10-10T'+values[1]), casOld)
-          setAktual("Do 1. hodiny zostáva" )
-          if(akt !== Number(index)){
-            akt = Number(index);
-          }
-        }
-        if(casOld.getTime() > new Date('2011-10-10T'+values[16]).getTime()){
-          timeDifference(new Date('2011-10-10T'+values[1]), casOld)
-          setAktual("Ahoj vidíme sa zajtra")
-          if(akt !== Number(index)){
-            akt = Number(index);
-          }
-        }
-        
+
       }
+
+        
+        
+
+      console.log("start    "+start)
+      console.log("aktn     "+aktn)
       if(akt !== aktn){
         if(start == 0){
           start = 1;
         }else{
-          url = "https://rozhlas.webprofik.eu/hour/play/"+aktn;
+          console.log(aktn)
+          url = "https://rozhlas.kasik.sk/ring/play/"+aktn;
           audio = new Audio(url);
           audio.play();
         }
-        
       }
       
     }, 1000)
