@@ -208,44 +208,33 @@ const Home = (props: Props) => {
   
   return (
     <>
-
-
-    <div className="size1 overlay1">
-
-		<div className="page flex-col-c-m p-t-30" >
-			<div className="wrappic1 m-r-30 m-t-10 m-b-10 p-b-40 ">
-				<a href="#"><img src="images/logo.png" alt="LOGO" /></a>
-			</div>
-      
-			<h5 className="l1-txt1 txt-center p-b-40 ">{aktual}</h5>
-
-			<div className="flex-w flex-c-m cd100">
-        {den > 0 &&
-		      <div className="flex-col-c wsize1 m-b-30">
-            <span className="l1-txt2 p-b-9 days">{den}</span>
-            <span className="s1-txt1 where1 p-l-35">Den</span>
-          </div>
-        }
-        {hodina > 0 &&
-		      <div className="flex-col-c wsize1 m-b-30">
-					  <span className="l1-txt2 p-b-9 hours">{hodina}</span>
-					  <span className="s1-txt1 where1 p-l-35">Hodin</span>
-				  </div>
-        }
-        {minuta > 0 &&
-		      <div className="flex-col-c wsize1 m-b-30">
-					  <span className="l1-txt2 p-b-9 minutes">{minuta}</span>
-					  <span className="s1-txt1 where1 p-l-35">Minut</span>
-				  </div>
-        }
-		      <div className="flex-col-c wsize1 m-b-30">
-					  <span className="l1-txt2 p-b-9 seconds">{sekunda}</span>
-					  <span className="s1-txt1 where1 p-l-35">Sekund</span>
-				  </div>
-			</div>
-      <h6 className="l1-txt1 txt-center p-b-40 ">{caso}</h6>
-		</div>
-	</div>
+<h2>{aktual}</h2> 	
+<div className="countdown styled">
+  {den > 0 &&
+    <div>
+      {den}
+      <span>Den</span>
+    </div>
+  }
+  {hodina > 0 &&
+    <div>
+      {hodina}
+      <span>Hodín</span>
+    </div>
+  }
+  {minuta > 0 &&
+    <div>
+      {minuta}
+      <span>Minút</span>
+    </div>
+  }
+  <div>
+    {sekunda}
+    <span>Sekúnd</span>
+  </div>
+</div>
+<br /><br />
+<h2>{caso}</h2> 
     </>
   )
 }
