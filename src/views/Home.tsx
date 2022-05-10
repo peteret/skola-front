@@ -10,12 +10,14 @@ type Props = {}
 
 const Home = (props: Props) => {
   
+  let actionB = false
   const [aktual, setAktual] = useState("Načitavam")
   const [den, setDen] = useState(0)
   const [hodina, setHodina] = useState(0)
   const [minuta, setMinuta] = useState(0)
   const [sekunda, setSekunda] = useState(0)
   const [cas, setCas] = useState(new Date())
+  const [caso, setCaso] = useState("0:0:0")
 
 
   function timeDifference(date1: any,date2: any) {
@@ -94,7 +96,7 @@ const Home = (props: Props) => {
 
       aktn=akt;
 
-
+      
       
 
 
@@ -131,6 +133,9 @@ const Home = (props: Props) => {
         zaciatok.setMinutes(30)
         zaciatok.setSeconds(0);
 
+
+        //aktualny čas
+        setCaso(cass.toLocaleTimeString())
 
         //osetrenie vykendu
         if(koniec.getDay() >= 6){
@@ -207,10 +212,11 @@ const Home = (props: Props) => {
 
     <div className="size1 overlay1">
 
-		<div className="page flex-col-c-m p-t-80" >
+		<div className="page flex-col-c-m p-t-30" >
 			<div className="wrappic1 m-r-30 m-t-10 m-b-10 p-b-40 ">
 				<a href="#"><img src="images/logo.png" alt="LOGO" /></a>
 			</div>
+      
 			<h5 className="l1-txt1 txt-center p-b-40 ">{aktual}</h5>
 
 			<div className="flex-w flex-c-m cd100">
@@ -237,6 +243,7 @@ const Home = (props: Props) => {
 					  <span className="s1-txt1 where1 p-l-35">Sekund</span>
 				  </div>
 			</div>
+      <h6 className="l1-txt1 txt-center p-b-40 ">{caso}</h6>
 		</div>
 	</div>
     </>
