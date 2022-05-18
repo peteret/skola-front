@@ -18,6 +18,7 @@ const Home = (props: Props) => {
   const [sekunda, setSekunda] = useState(0)
   const [cas, setCas] = useState(new Date())
   const [caso, setCaso] = useState("0:0:0")
+  const [datum, setDatum] = useState("0.0.0000")
 
 
   function timeDifference(date1: any,date2: any) {
@@ -56,12 +57,12 @@ const Home = (props: Props) => {
       return
     }
     if(String(indexo1/2).includes(".5")){
-      setAktual("Prebieha " + String((indexo1/2)+0.5) + " hodina" )
+      setAktual("Prebieha " + String((indexo1/2)+0.5) + ". hodina" )
       if(aktn !==indexo1){
         
       }
     }else{ 
-      setAktual("Prebieha prestávka pred " + String((indexo1/2)+1) + " hodinou" )
+      setAktual("Prebieha prestávka pred " + String((indexo1/2)+1) + ". hodinou" )
       if(aktn !==indexo1){
         akt = indexo1
       }
@@ -136,6 +137,7 @@ const Home = (props: Props) => {
 
         //aktualny čas
         setCaso(cass.toLocaleTimeString())
+        setDatum(cass.toLocaleDateString())
 
         //osetrenie vykendu
         if(koniec.getDay() >= 6){
@@ -194,7 +196,7 @@ const Home = (props: Props) => {
           start = 1;
         }else{
           console.log(aktn)
-          url = "https://rozhlas.kasik.sk/ring/play/"+aktn;
+          url = "http://localhost/ring/play/"+aktn;
           audio = new Audio(url);
           audio.play();
         }
@@ -208,7 +210,8 @@ const Home = (props: Props) => {
   
   return (
     <>
-<h2>{aktual}</h2> 	
+<strong><h2 className='nadpis'>{aktual}</h2> </strong>	
+<br /><br />
 <div className="countdown styled">
   {den > 0 &&
     <div>
@@ -229,12 +232,16 @@ const Home = (props: Props) => {
     </div>
   }
   <div>
+  {sekunda < 10 &&
+    0
+  }
     {sekunda}
     <span>Sekúnd</span>
   </div>
 </div>
-<br /><br />
-<h2>{caso}</h2> 
+<br /><br /><br /><br />
+<h2 className='cas'>{caso}</h2> 
+
     </>
   )
 }

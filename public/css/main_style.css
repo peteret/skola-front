@@ -60,13 +60,6 @@ code {
 	color:#EEE;	
 	border-bottom:1px dotted #666;
 }
-small {
-	background:url(../images/alpha.png);
-	background:rgba(0, 0, 0, 0.8) url();	
-	border:1px solid #111;
-	font-size:15px;
-	padding:0 5px;
-}
 strong{
 text-align: center;
 display: block; 
@@ -90,40 +83,59 @@ padding:60px 0;
 position: relative;
 width: 100%; 
 z-index: 1;
-padding-top: 50px
+padding-top: 50px;
+padding-bottom: 80px;
 }
 .logo{
-	width: 80px;
-	height: 80px;
-	margin: 0 auto;
-	padding: 16px;
-	border-radius: 180px;
-	padding-bottom: 200px;
-}
-.logo h1{color: #ffffff;font-weight:600;}
-.logo img {
-	width: 160px;
-	height: 160px;
+	width: 120px;
+	height: 12Opx;
 	text-align: center;
 	display: block;
-	margin: 0 auto 10px;}
+  	margin-left: auto;
+  	margin-right: auto;
+}
+.logo h1{color: #ffffff;font-weight:600;}
+.imglogo {
+	width: 160px;
+	height: 160px;
+	display: block;
+	padding-bottom: 20px;
+}
 .wrapper {
 margin: 0 auto;
 position: relative;
 width: 100%;
 z-index: 1;
 }
-.tempBy{display:block;text-align:center;padding: 18px;background: #212121;color: #8A8A8A;font-size: 12px;}
-#Content h2 {
+.tempBy{
+	display:block;
+	text-align:center;
+	background: #212121;
+	color: #8A8A8A;
+	font-size: 12px;
+}
+.nadpis {
 	margin: 0px;
-	padding: 0px;
+    padding-bottom: 50px;
 	text-align: center;
-	font-size: 40px;
+	font-size: 50px;
 	font-weight: 300;
 	color: #ffffff;
-	margin-bottom:40px;
+	margin-bottom:-60px;
 	text-transform: uppercase;
-	line-height: 38px;}
+	line-height: 38px;
+}
+.cas {
+	margin: 0px;
+    padding-top: 10px;
+	text-align: center;
+	font-size: 80px;
+	font-weight: 300;
+	color: #ffffff;
+	margin-bottom:-60px;
+	text-transform: uppercase;
+	line-height: 38px;
+}
 #WindowSlide {
 margin: 0 auto;
 position: relative;
@@ -157,15 +169,20 @@ clear: both;
 .ended {
   background: #c0392b;
 }
-.countdown {text-align: center;margin-top: 30px;background: #5381E4;padding: 60px 0;background-size: cover;background: url(../images/bg.jpg) top left repeat;} 
+.countdown {
+	text-align: center;
+	margin-top: 30px;
+	background-size: cover;
+} 
 .styled div {
   display: inline-block;
   margin-left: 10px;
-  font-size: 150px;
+  font-size: 300px;
   font-weight: normal; 
   text-align: center;
   margin:0 15px; 
-  padding:0 30px;   
+  padding:0 50px;   
+  padding-bottom: 10px;
   color:#fff;  
   text-shadow:none;
   vertical-align: middle;  
@@ -191,7 +208,7 @@ opacity:0.8;
 .styled div span {
   display: block;
   padding-top: 3px;
-  font-size: 19px;
+  font-size: 30px;
   font-weight: normal;
   text-align: center;
   text-transform: uppercase;
