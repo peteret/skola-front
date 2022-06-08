@@ -77,7 +77,7 @@ const Home = (props: Props) => {
   useEffect(()=>{
     setInterval(()=>{
       let values: (string)[] = ['','07:30:00', '08:15:00', '08:20:00', '09:05:00', '09:15:00', '10:00:00', '10:20:00', '11:05:00', '11:10:00', '11:55:00', '12:25:00', '13:10:00', '13:15:00', '14:00:00', '14:05:00', '14:50:00'];
-      // 1 hodina - 16
+      // 1 hodina - 999
       // 1 hod koniec - 1
       // 2 hod - 2
       // 2 hod koniec - 3
@@ -122,7 +122,6 @@ const Home = (props: Props) => {
           hodnota2.setMinutes(Number(hodnota2List[1]))
           hodnota2.setSeconds(Number(hodnota2List[2]))
         }
-        
 
         let koniec = new Date();
         koniec.setHours(14);
@@ -134,7 +133,6 @@ const Home = (props: Props) => {
         zaciatok.setMinutes(30)
         zaciatok.setSeconds(0);
 
-
         //aktualny čas
         setCaso(cass.toLocaleTimeString())
         setDatum(cass.toLocaleDateString())
@@ -144,10 +142,6 @@ const Home = (props: Props) => {
           let odober = cass.getDay()-5;
           koniec.setDate(zaciatok.getDate()-odober);
         }
-        
-
-
-
 
         //ked je po skole 
         if(cass.getTime() > koniec.getTime()){
@@ -181,16 +175,10 @@ const Home = (props: Props) => {
           akt = 999
         }
 
-        
-
-
       }
 
         
-        
-
-      console.log("start    "+start)
-      console.log("aktn     "+aktn)
+      //prehravanie 
       if(akt !== aktn){
         if(start == 0){
           start = 1;

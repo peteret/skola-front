@@ -79,6 +79,10 @@ a:hover {
 .spacing{
 padding:60px 0;
 }
+.obed {
+	text-align: left;
+	padding-left: 2cm;
+}
 #Header { 
 position: relative;
 width: 100%; 
